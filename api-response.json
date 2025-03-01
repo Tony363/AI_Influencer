@@ -1,1 +1,78 @@
-{"data":[{"character_type":"realistic","id":"chr_Wm5RfrmYsK","input_image":"https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_Wm5RfrmYsK","name":"Ana","prompt":"25 year old, white European woman. She has wavy blonde hair.","system_character":true},{"character_type":"realistic","id":"chr_f5LkxjLOhJ","input_image":"https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_f5LkxjLOhJ","name":"Tia","prompt":"25 year old, white Greek woman. She has straight brown hair.","system_character":true},{"character_type":"realistic","id":"chr_RjJQartjj7","input_image":"https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_RjJQartjj7","name":"Sam","prompt":"25 year old, young black man. He has short, neatly trimmed black hair and a clean-shaven face.","system_character":true},{"character_type":"realistic","id":"chr_T5GLgeJj66","input_image":"https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_T5GLgeJj66","name":"Eva","prompt":"25 year old, white German woman. She has curly brown hair.","system_character":true},{"character_type":"realistic","id":"chr_4GIol62ky5","input_image":"https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_4GIol62ky5","name":"Ben","prompt":"25 year old, white European man. He has short blonde hair and a well-trimmed beard.","system_character":true},{"character_type":"realistic","id":"chr_UdMk8mlQFT","input_image":"https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_UdMk8mlQFT","name":"Zoe","prompt":"25 year old, Korean woman. She has silky black hair.","system_character":true},{"character_type":"realistic","id":"chr_vx8xtrhK3h","input_image":"https://redernet-image-data.s3.amazonaws.com/prod/assets/character_studio/chr_vx8xtrhK3h","name":"Josie","prompt":"an adult woman, blue undercut mohawk","system_character":true},{"character_type":"realistic","id":"chr_nnfGlLAhBS","input_image":"https://redernet-image-data.s3.amazonaws.com/prod/assets/character_studio/chr_nnfGlLAhBS","name":"Sara","prompt":"a young woman, straight red hair","system_character":true},{"character_type":"realistic","id":"chr_PBZt1iWMEf","input_image":"https://redernet-image-data.s3.amazonaws.com/prod/assets/character_studio/chr_PBZt1iWMEf","name":"Alice","prompt":"a female, adult, long blonde hair","system_character":true}],"err":{},"pagination":{"page":1,"page_size":10,"total":9}}
+{
+  "data": [
+    {
+      "character_type": "realistic",
+      "id": "chr_Wm5RfrmYsK",
+      "input_image": "https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_Wm5RfrmYsK",
+      "name": "Ana",
+      "prompt": "25 year old, white European woman. She has wavy blonde hair.",
+      "system_character": true
+    },
+    {
+      "character_type": "realistic",
+      "id": "chr_f5LkxjLOhJ",
+      "input_image": "https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_f5LkxjLOhJ",
+      "name": "Tia",
+      "prompt": "25 year old, white Greek woman. She has straight brown hair.",
+      "system_character": true
+    },
+    {
+      "character_type": "realistic",
+      "id": "chr_RjJQartjj7",
+      "input_image": "https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_RjJQartjj7",
+      "name": "Sam",
+      "prompt": "25 year old, young black man. He has short, neatly trimmed black hair and a clean-shaven face.",
+      "system_character": true
+    },
+    {
+      "character_type": "realistic",
+      "id": "chr_T5GLgeJj66",
+      "input_image": "https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_T5GLgeJj66",
+      "name": "Eva",
+      "prompt": "25 year old, white German woman. She has curly brown hair.",
+      "system_character": true
+    },
+    {
+      "character_type": "realistic",
+      "id": "chr_4GIol62ky5",
+      "input_image": "https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_4GIol62ky5",
+      "name": "Ben",
+      "prompt": "25 year old, white European man. He has short blonde hair and a well-trimmed beard.",
+      "system_character": true
+    },
+    {
+      "character_type": "realistic",
+      "id": "chr_UdMk8mlQFT",
+      "input_image": "https://redernet-image-data.s3.us-east-1.amazonaws.com/prod/assets/character_studio/chr_UdMk8mlQFT",
+      "name": "Zoe",
+      "prompt": "25 year old, Korean woman. She has silky black hair.",
+      "system_character": true
+    },
+    {
+      "character_type": "realistic",
+      "id": "chr_vx8xtrhK3h",
+      "input_image": "https://redernet-image-data.s3.amazonaws.com/prod/assets/character_studio/chr_vx8xtrhK3h",
+      "name": "Josie",
+      "prompt": "an adult woman, blue undercut mohawk",
+      "system_character": true
+    },
+    {
+      "character_type": "realistic",
+      "id": "chr_nnfGlLAhBS",
+      "input_image": "https://redernet-image-data.s3.amazonaws.com/prod/assets/character_studio/chr_nnfGlLAhBS",
+      "name": "Sara",
+      "prompt": "a young woman, straight red hair",
+      "system_character": true
+    },
+    {
+      "character_type": "realistic",
+      "id": "chr_PBZt1iWMEf",
+      "input_image": "https://redernet-image-data.s3.amazonaws.com/prod/assets/character_studio/chr_PBZt1iWMEf",
+      "name": "Alice",
+      "prompt": "a female, adult, long blonde hair",
+      "system_character": true
+    }
+  ],
+  "err": {},
+  "pagination": { "page": 1, "page_size": 10, "total": 9 }
+}
