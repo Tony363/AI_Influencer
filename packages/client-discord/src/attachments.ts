@@ -257,6 +257,7 @@ export class AttachmentManager {
         attachment: Attachment
     ): Promise<Media> {
         try {
+            console.log("LOOWOWWOWOWOWOWOW 0qqoqksoqsk1")
             const response = await fetch(attachment.url);
             const text = await response.text();
             const { title, description } = await generateSummary(

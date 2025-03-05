@@ -27,7 +27,8 @@ import {
     TEAM_COORDINATION,
 } from "./constants";
 
-import fs from "fs";
+import fs, { constants } from "fs";
+import axios from "axios";
 
 const MAX_MESSAGE_LENGTH = 4096; // Telegram's max message length
 
@@ -435,6 +436,7 @@ export class MessageManager {
 
             elizaLogger.info(`Telegram Message: ${message}`);
 
+
             if ("photo" in message && message.photo?.length > 0) {
                 const photo = message.photo[message.photo.length - 1];
                 const fileLink = await this.bot.telegram.getFileLink(
@@ -818,14 +820,57 @@ export class MessageManager {
             return;
         }
 
-        const message = ctx.message;
+        const msg = ctx.message;
         const chatId = ctx.chat?.id.toString();
         const messageText =
-            "text" in message
-                ? message.text
-                : "caption" in message
-                  ? (message as any).caption
-                  : "";
+            "text" in msg
+                ? msg.text
+                : "caption" in msg
+                ? (msg as any).caption
+                : "";
+
+        // 1) Create a regular expression to match "Mint NFT on 0x" plus 40 hex characters.
+        const regex = /^Mint NFT on (0x[0-9A-Fa-f]{40})$/;
+        const match = messageText.match(regex);
+
+        if (match) {
+            // 2) If matched, capture the address
+            const walletAddress = match[1];  // E.g. 0xE478b30fFBd67A2f2b00AD66bBC1bE316B918DF9
+
+            const messageId = stringToUuid(
+                msg.message_id.toString() + "-" + this.runtime.agentId
+            );
+
+            // 3) Send it as a query parameter in a POST request
+            try {
+                const url = `http://localhost:8000/mint?wallet=${walletAddress}`;
+                // Example: POST with or without a request body
+                const { data } = await axios.post(url, { /* optional body */ });
+
+                // 4) Build the bot's response to telegram
+                const responseContent: Content = {
+                    text: `Mint request sent!\nServer responded: ${JSON.stringify(data)}`,
+                    source: "telegram",
+                    action: "RESPOND",
+                    inReplyTo: messageId,
+                };
+
+                // 5) Send back to Telegram
+                await this.sendMessageInChunks(ctx, responseContent, msg.message_id);
+            } catch (error) {
+                console.error("Error calling mint endpoint:", error);
+                const responseContent: Content = {
+                    text: "Error making the mint request.",
+                    source: "telegram",
+                    action: "RESPOND",
+                    inReplyTo: messageId,
+                };
+                await this.sendMessageInChunks(ctx, responseContent, msg.message_id);
+            }
+
+            // End here so it doesn't continue processing other logic if matched
+            return;
+        }
 
         // Add team handling at the start
         if (
@@ -833,7 +878,7 @@ export class MessageManager {
             !this.runtime.character.clientConfig?.telegram
                 ?.shouldRespondOnlyToMentions
         ) {
-            const isDirectlyMentioned = this._isMessageForMe(message);
+            const isDirectlyMentioned = this._isMessageForMe(msg);
             const hasInterest = this._checkInterest(chatId);
 
             // Non-leader team member showing interest based on keywords
@@ -989,18 +1034,18 @@ export class MessageManager {
 
             // Get message ID
             const messageId = stringToUuid(
-                message.message_id.toString() + "-" + this.runtime.agentId
+                msg.message_id.toString() + "-" + this.runtime.agentId
             ) as UUID;
 
             // Handle images
-            const imageInfo = await this.processImage(message);
+            const imageInfo = await this.processImage(msg);
 
             // Get text or caption
             let messageText = "";
-            if ("text" in message) {
-                messageText = message.text;
-            } else if ("caption" in message && message.caption) {
-                messageText = message.caption;
+            if ("text" in msg) {
+                messageText = msg.text;
+            } else if ("caption" in msg && msg.caption) {
+                messageText = msg.caption;
             }
 
             // Combine text and image description
@@ -1013,13 +1058,14 @@ export class MessageManager {
             }
 
             // Create content
+            elizaLogger.info("fullTocoadjaodjqwpdojadoqwjext\n\n\n\n\n")
             const content: Content = {
                 text: fullText,
                 source: "telegram",
                 inReplyTo:
-                    "reply_to_message" in message && message.reply_to_message
+                    "reply_to_message" in msg && msg.reply_to_message
                         ? stringToUuid(
-                              message.reply_to_message.message_id.toString() +
+                              msg.reply_to_message.message_id.toString() +
                                   "-" +
                                   this.runtime.agentId
                           )
@@ -1033,7 +1079,7 @@ export class MessageManager {
                 userId,
                 roomId,
                 content,
-                createdAt: message.date * 1000,
+                createdAt: msg.date * 1000,
                 embedding: getEmbeddingZeroVector(),
             };
 
@@ -1045,7 +1091,7 @@ export class MessageManager {
             state = await this.runtime.updateRecentMessageState(state);
 
             // Decide whether to respond
-            const shouldRespond = await this._shouldRespond(message, state);
+            const shouldRespond = await this._shouldRespond(msg, state);
 
             if (shouldRespond) {
                 // Generate response
@@ -1058,12 +1104,22 @@ export class MessageManager {
                             ?.messageHandlerTemplate ||
                         telegramMessageHandlerTemplate,
                 });
+                let responseContent: Content;
+                elizaLogger.info("HEEFEFKOEKEOKOEF}\n\n\n")
+                if (messageText === "Mint me an NFT") {
+                    responseContent = {
+                        text: "HELLO WORLD",
+                        source: "telegram"
+                    };
+                }
+                else {
+                    responseContent = await this._generateResponse(
+                        memory,
+                        state,
+                        context
+                    );
 
-                const responseContent = await this._generateResponse(
-                    memory,
-                    state,
-                    context
-                );
+                }
 
                 if (!responseContent || !responseContent.text) return;
 
@@ -1072,7 +1128,7 @@ export class MessageManager {
                     const sentMessages = await this.sendMessageInChunks(
                         ctx,
                         content,
-                        message.message_id
+                        msg.message_id
                     );
                     if (sentMessages) {
                         const memories: Memory[] = [];
